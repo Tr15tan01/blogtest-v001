@@ -1,0 +1,25 @@
+const express = require('express');
+const router = express.Router();
+const bodyParser = require('body-parser');
+const regController = require('../controllers/regcontroller')
+const isAuthenticated = require('../middleware/authcontroll')
+// parse application/x-www-form-urlencoded
+router.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+router.use(bodyParser.json());
+
+router.get('/', regController.getIndex)
+
+router.get('/register', regController.getRegister);
+
+router.post('/register', regController.postRegister);
+
+router.get('/login', regController.getLogin);
+
+router.post('/login', regController.postLogin)
+
+router.get('/backgrounds', isAuthenticated, regController.getBackgrounds)
+
+
+module.exports = router;
