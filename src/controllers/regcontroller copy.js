@@ -11,7 +11,7 @@ exports.getRegister = (req, res, next) => {
 };
 
 exports.getLogin = (req, res, next) => {
-	res.render('login', { pageTitle: 'login', errorMessageEmail: '', inputValue: '' });
+	res.render('login', { pageTitle: 'login', errorMessage: '' });
 };
 
 exports.getIndex = (req, res, next) => {
@@ -22,16 +22,14 @@ exports.postRegister = (req, res, next) => {
 	const name = req.body.name;
 	const email = req.body.email;
 	const password = req.body.password;
-	const passCheck = req.body.password.length;
 	const age = req.body.age;
 	User.findOne({ email: email })
 		.then((userDoc) => {
 			if (userDoc) {
 				console.log('user exists');
-				return res.render('register', { pageTitle: 'reguster', errorMessageName: '', errorMessageEmail: 'user exists', errorMessagePassword: '', errorMessageAge: '' });
-			} 
-			return bcrypt.hash(password, 10).then((hashedPassword) => {
-				console.log(password)
+				return res.render('register', { pageTitle: 'reguster', errorMessage: 'user exists' });
+			}
+			return bcrypt.hash(password, 12).then((hashedPassword) => {
 				const user = new User({
 					name     : name,
 					email    : email,
@@ -40,13 +38,15 @@ exports.postRegister = (req, res, next) => {
 				});
 				user.save(function(error) {
 					if (error) {
-						error.errors['name'] ? errorMessageName = error.errors['name'].message : errorMessageName = '';
-						error.errors['email'] ? errorMessageEmail = error.errors['email'].message : errorMessageEmail = '';
-						passCheck < 6 ? errorMessagePassword = 'password must be minimm 6' : errorMessagePassword = '';
-						error.errors['age'] ? errorMessageAge = error.errors['age'].message : errorMessageAge = '';
-							//console.log(error.errors['password'].message)
+							errorMessageName = error.errors['name'].message;
+							errorMessageEmail = error.errors['email'].message;
+							errorMessagePassword = error.errors['password'];
+							errorMessageAge = error.errors['age'].message;
+							console.log(error.errors['password'])
+							console.log('password', password)
+						
 						// console.log('fuckin error', error.errors['age'].message);
-						console.log('fuckin error', error);
+						console.log('fuckin error');
 						return res.render('register', {
 							pageTitle: 'regeester',
 							errorMessageName: errorMessageName,
@@ -72,13 +72,13 @@ exports.postLogin = (req, res, next) => {
 	const email = req.body.email;
 	const password = req.body.password;
 	req.session.isLoggedIn = true;
-	//console.log(req.session);
+	console.log(req.session);
 	User.findOne({ email: email })
 		.then((user) => {
 			if (!user) {
 				// req.flash('error', 'Invalid email or password.');
 				console.log('user or pass problem');
-				return res.render('login', { errorMessageEmail: 'user or pass prob', pageTitle: 'login', inputValue: '' });
+				return res.render('login', { errorMessage: 'user or pass prob', pageTitle: 'login' });
 			}
 			bcrypt
 				.compare(password, user.password)
@@ -93,7 +93,7 @@ exports.postLogin = (req, res, next) => {
 							return res.redirect('/');
 						});
 					}
-					res.render('login', { errorMessageEmail: 'pass prob', pageTitle: 'login', inputValue: email });
+					res.render('login', { errorMessage: 'pass prob', pageTitle: 'login' });
 					console.log('password problem');
 				})
 				.catch((err) => {

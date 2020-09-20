@@ -10,8 +10,8 @@
                         <div class="row row-space">
                             <div class="col-1">
                                 <div class="input-group">
-                                    <label class="label">email</label>
-                                    <input class="input--style-4" type="text" name="email" autocomplete="off">
+                                    <label class="label">email <div class="error-message"><%= errorMessageEmail %></label>
+                                    <input class="input--style-4" type="text" name="email" value =" <%= inputValue %>" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-1">
@@ -25,11 +25,9 @@
                             <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
                         </div>
                     </form>
-                    <a class="link" href="register">Don't Have an account? Register Now</a>
-                    <% if (errorMessage) { %>
-                      <div class="error-message"><%= errorMessage %></div>
-                  <% } %>
+                   
                 </div>
+                <a class="link" href="register">Don't Have an account? Register Now</a>
             </div>
         </div>
     </div>
