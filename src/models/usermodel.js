@@ -25,13 +25,9 @@ const userSchema = new Schema({
         type: Number,
         trim: true,
         required: [true, 'it is necessary to provide age baby'],
-        min: [18, 'ჯერ პატარა ხარ']
+        min: [18, 'ჯერ პატარა ხარ'],
+        max: [18, 'ჯერ პატარა ხარ']
     }
 })
-
-// userSchema.path('password').validate(function(pass) {
-//     console.log(pass.length, 'pass lengtyh')
-//     return pass.length > 6;
-// }, 'password must be minimum 6');
 
 module.exports = mongoose.model('User', userSchema)

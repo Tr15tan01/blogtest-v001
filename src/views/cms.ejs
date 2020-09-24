@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CMS</title>
+
+  <!-- Bootstrap core CSS -->
+  <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+  <!-- Custom styles for this template -->
+  <link href="css/clean-blog.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="container cms-wrapper">
+    <div class="row">
+      <div class="col-4">
+
+        <div class="vertical-menu">
+          <a href="#" class="active">Home</a>
+          <a href="#">Link 1</a>
+          <a href="#">Link 2</a>
+          <a href="#">Link 3</a>
+          <a href="/logout">Logout</a>
+        </div>
+
+      </div>
+      <div class="col-8">
+        <form method="POST" action="cms">
+          <div class="form-group">
+            <label for="heading">Heading</label>
+            <input type="text" class="form-control" name="heading" placeholder="Heading">
+          </div>
+          <div class="form-group">
+            <label for="subheading">Subheading</label>
+            <input type="text" class="form-control" name="subheading" placeholder="subheading">
+          </div>
+          <div class="form-group">
+            <label for="imgurl">Image URL</label>
+            <input type="text" class="form-control" name="imageurl" placeholder="Image URL Here">
+          </div>
+
+          <div class="form-group">
+            <label for="content">Content</label>
+            <textarea class="form-control" name="content" rows="6"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

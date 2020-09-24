@@ -7,6 +7,8 @@ const session = require('express-session');
 const mongoStore = require('connect-mongodb-session')(session);
 
 const routes = require('./routes/routes');
+const postController = require('./controllers/postController');
+const { getVarPost } = require('./controllers/regcontroller');
 
 const MONGODB_URI =
 	'mongodb+srv://titevar:aoKfl67Husa_d78GH@cluster0-tpkz7.mongodb.net/logsys01?retryWrites=true&w=majority';
@@ -17,12 +19,20 @@ const store = new mongoStore({
 	collection : 'sessions'
 });
 
-app.use(session({ secret: '$100000', resave: false, saveUninitialized: false, store: store }));
+app.use(session({ secret: '$100000', resave: false, expires: new Date(Date.now() + (30  * 1000)), saveUninitialized: false, store: store }));
 app.use(routes);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
+
+// caching disabled for every route
+app.use(function(req, res, next) {
+	res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+	next();
+  });
+
+app.get('*', postController.getVarPost)
 
 mongoose
 	.connect(MONGODB_URI, {

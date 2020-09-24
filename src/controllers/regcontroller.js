@@ -2,20 +2,45 @@ const bcrypt = require('bcryptjs');
 
 const User = require('../models/usermodel');
 
-exports.getBackgrounds = (req, res, next) => {
-	res.render('backgrounds');
+const Post = require('../models/postmodel');
+
+exports.getPost = (req, res, next) => {
+	res.render('post');
 };
 
+exports.getAbout = (req, res, next) => {
+	res.render('about')
+}
+
 exports.getRegister = (req, res, next) => {
-	res.render('register', { pageTitle: 'register00000', errorMessageName: '', errorMessageEmail: '', errorMessagePassword: '', errorMessageAge: '' });
+	res.render('register', {
+		pageTitle            : 'register00000',
+		errorMessageName     : '',
+		errorMessageEmail    : '',
+		errorMessagePassword : '',
+		errorMessageAge      : ''
+	});
 };
 
 exports.getLogin = (req, res, next) => {
 	res.render('login', { pageTitle: 'login', errorMessageEmail: '', inputValue: '' });
 };
 
+
 exports.getIndex = (req, res, next) => {
-	res.render('', { pageTitle: 'main' });
+	Post.find({}, function(err, posts) {
+		// var postMap = '';
+		// posts.forEach(function(post) {
+		// 	postMap = postMap + `<li><a href="#"> ${post.heading} </a> </li>`;
+		// });
+		linkAddress = posts.heading;
+		return res.render('', { linkAddress: linkAddress, post: posts });
+	}).sort('-dateCreated').exec();
+};
+
+
+exports.getCms = (req, res, next) => {
+	res.render('cms');
 };
 
 exports.postRegister = (req, res, next) => {
@@ -27,11 +52,17 @@ exports.postRegister = (req, res, next) => {
 	User.findOne({ email: email })
 		.then((userDoc) => {
 			if (userDoc) {
-				console.log('user exists');
-				return res.render('register', { pageTitle: 'reguster', errorMessageName: '', errorMessageEmail: 'user exists', errorMessagePassword: '', errorMessageAge: '' });
-			} 
+				//console.log('user exists');
+				return res.render('register', {
+					pageTitle            : 'reguster',
+					errorMessageName     : '',
+					errorMessageEmail    : 'user exists',
+					errorMessagePassword : '',
+					errorMessageAge      : ''
+				});
+			}
 			return bcrypt.hash(password, 10).then((hashedPassword) => {
-				console.log(password)
+				//console.log(password);
 				const user = new User({
 					name     : name,
 					email    : email,
@@ -40,23 +71,29 @@ exports.postRegister = (req, res, next) => {
 				});
 				user.save(function(error) {
 					if (error) {
-						error.errors['name'] ? errorMessageName = error.errors['name'].message : errorMessageName = '';
-						error.errors['email'] ? errorMessageEmail = error.errors['email'].message : errorMessageEmail = '';
-						passCheck < 6 ? errorMessagePassword = 'password must be minimm 6' : errorMessagePassword = '';
-						error.errors['age'] ? errorMessageAge = error.errors['age'].message : errorMessageAge = '';
-							//console.log(error.errors['password'].message)
+						error.errors['name']
+							? (errorMessageName = error.errors['name'].message)
+							: (errorMessageName = '');
+						error.errors['email']
+							? (errorMessageEmail = error.errors['email'].message)
+							: (errorMessageEmail = '');
+						passCheck < 6
+							? (errorMessagePassword = 'password must be minimm 6')
+							: (errorMessagePassword = '');
+						error.errors['age'] ? (errorMessageAge = error.errors['age'].message) : (errorMessageAge = '');
+						//console.log(error.errors['password'].message)
 						// console.log('fuckin error', error.errors['age'].message);
-						console.log('fuckin error', error);
+						//console.log('fuckin error', error);
 						return res.render('register', {
-							pageTitle: 'regeester',
-							errorMessageName: errorMessageName,
-							errorMessageEmail: errorMessageEmail, 
-							errorMessagePassword: errorMessagePassword,
-							errorMessageAge: errorMessageAge
+							pageTitle            : 'regeester',
+							errorMessageName     : errorMessageName,
+							errorMessageEmail    : errorMessageEmail,
+							errorMessagePassword : errorMessagePassword,
+							errorMessageAge      : errorMessageAge
 						});
 					}
 					else {
-						console.log('else');
+						//console.log('else');
 						return res.redirect('/login');
 					}
 				});
@@ -64,6 +101,7 @@ exports.postRegister = (req, res, next) => {
 		})
 		.catch((err) => {
 			console.log('fuckin error', err);
+
 			//return res.render('register', { pageTitle: 'regeester', errorMessage: error.errors['age'].message })
 		});
 };
@@ -77,29 +115,69 @@ exports.postLogin = (req, res, next) => {
 		.then((user) => {
 			if (!user) {
 				// req.flash('error', 'Invalid email or password.');
-				console.log('user or pass problem');
-				return res.render('login', { errorMessageEmail: 'user or pass prob', pageTitle: 'login', inputValue: '' });
+				//console.log('user or pass problem');
+				return res.render('login', {
+					errorMessageEmail : 'user or pass prob',
+					pageTitle         : 'login',
+					inputValue        : ''
+				});
 			}
 			bcrypt
 				.compare(password, user.password)
 				.then((doMatch) => {
 					if (doMatch) {
-						console.log(req.session, 'sesione');
+						//console.log(req.session, 'sesione');
 						req.session.isLoggedIn = true;
 						req.session.user = user;
 						return req.session.save((err) => {
-							console.log(err);
-							console.log('logged');
-							return res.redirect('/');
+							//console.log('err', err);
+							//console.log('logged');
+							return res.redirect('cms');
 						});
 					}
 					res.render('login', { errorMessageEmail: 'pass prob', pageTitle: 'login', inputValue: email });
-					console.log('password problem');
+					//console.log('password problem');
 				})
 				.catch((err) => {
-					console.log(err);
+					//console.log(err);
 					res.redirect('/login');
 				});
 		})
 		.catch((err) => console.log(err));
 };
+
+exports.postCms = (req, res, next) => {
+	heading = req.body.heading;
+	subheading = req.body.subheading;
+	imageurl = req.body.imageurl;
+	content = req.body.content;
+	link = req.body.heading.split(' ').join('-')
+    //console.log(link)
+	const post = new Post({
+		heading    : heading,
+		subheading : subheading,
+		imageurl: imageurl,
+		content    : content,
+		link: link
+	});
+
+	post.save(res.render('cms'), function(err) {'console.log(err)'});
+};
+
+exports.getPost2 = (req, res, next) => {
+	Post.findOne({ heading: 'post2' }).then((post) => {
+		return res.render('post2', { heading: post.heading, subheading: post.subheading, content: post.content });
+	});
+	//res.render('post2', { heading: 'test is a good validation for this and ha ha ha'})
+};
+
+exports.getLogOut = (req, res, next) => {
+	req.session.isLoggedIn = false;
+req.session.destroy();
+res.redirect('/login')
+// res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+// res.header('Expires', '-1');
+// res.header('Pragma', 'no-cache');
+
+//console.log('session endded')
+}
