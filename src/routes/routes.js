@@ -6,8 +6,6 @@ const isAuthenticated = require('../middleware/authcontroll');
 // parse application/x-www-form-urlencoded
 router.use(bodyParser.urlencoded({ extended: false }));
 
-
-
 // parse application/json
 router.use(bodyParser.json());
 
@@ -28,6 +26,10 @@ router.get('/post', regController.getPost);
 router.get('/cms', isAuthenticated, regController.getCms);
 
 router.post('/cms', isAuthenticated, regController.postCms);
+
+router.get('/cms1', regController.getCms1);
+
+router.post('/cms1', regController.uploadImage, regController.postCms1);
 
 router.get('/logout', regController.getLogOut)
 

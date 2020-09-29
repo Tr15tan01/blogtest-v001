@@ -5,6 +5,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const mongoStore = require('connect-mongodb-session')(session);
+const bodyParser = require('body-parser')
+const multer = require('multer')
 
 const routes = require('./routes/routes');
 const postController = require('./controllers/postController');
@@ -22,15 +24,11 @@ const store = new mongoStore({
 app.use(session({ secret: '$100000', resave: false, expires: new Date(Date.now() + (30  * 1000)), saveUninitialized: false, store: store }));
 app.use(routes);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({extended: false}))
+//app.use(multer({dest: '/images'}))
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-
-// caching disabled for every route
-app.use(function(req, res, next) {
-	res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-	next();
-  });
 
 app.get('*', postController.getVarPost)
 

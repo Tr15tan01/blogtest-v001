@@ -9,8 +9,8 @@ exports.getPost = (req, res, next) => {
 };
 
 exports.getAbout = (req, res, next) => {
-	res.render('about')
-}
+	res.render('about');
+};
 
 exports.getRegister = (req, res, next) => {
 	res.render('register', {
@@ -26,7 +26,6 @@ exports.getLogin = (req, res, next) => {
 	res.render('login', { pageTitle: 'login', errorMessageEmail: '', inputValue: '' });
 };
 
-
 exports.getIndex = (req, res, next) => {
 	Post.find({}, function(err, posts) {
 		// var postMap = '';
@@ -35,12 +34,17 @@ exports.getIndex = (req, res, next) => {
 		// });
 		linkAddress = posts.heading;
 		return res.render('', { linkAddress: linkAddress, post: posts });
-	}).sort('-dateCreated').exec();
+	})
+		.sort('-dateCreated')
+		.exec();
 };
-
 
 exports.getCms = (req, res, next) => {
 	res.render('cms');
+};
+
+exports.getCms1 = (req, res, next) => {
+	res.render('cms1');
 };
 
 exports.postRegister = (req, res, next) => {
@@ -151,17 +155,38 @@ exports.postCms = (req, res, next) => {
 	subheading = req.body.subheading;
 	imageurl = req.body.imageurl;
 	content = req.body.content;
-	link = req.body.heading.split(' ').join('-')
-    //console.log(link)
+	link = req.body.heading.split(' ').join('-');
+	//console.log(link)
 	const post = new Post({
 		heading    : heading,
 		subheading : subheading,
-		imageurl: imageurl,
+		imageurl   : imageurl,
 		content    : content,
-		link: link
+		link       : link
 	});
 
-	post.save(res.render('cms'), function(err) {'console.log(err)'});
+	post.save(res.render('cms'), function(err) {
+		'console.log(err)';
+	});
+};
+
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+	destination : function(req, file, cb) {
+		cb(null, 'src/images');
+	},
+	filename    : function(req, file, cb) {
+		cb(null, file.fieldname + '-' + Date.now() + '.jpg');
+	}
+});
+
+var upload = multer({ storage: storage });
+
+exports.uploadImage = upload.single('image');
+exports.postCms1 = (req, res, next) => {
+	console.log(req.file);
+	res.render('cms1');
 };
 
 exports.getPost2 = (req, res, next) => {
@@ -173,11 +198,11 @@ exports.getPost2 = (req, res, next) => {
 
 exports.getLogOut = (req, res, next) => {
 	req.session.isLoggedIn = false;
-req.session.destroy();
-res.redirect('/login')
-// res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-// res.header('Expires', '-1');
-// res.header('Pragma', 'no-cache');
+	req.session.destroy();
+	res.redirect('/login');
+	// res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+	// res.header('Expires', '-1');
+	// res.header('Pragma', 'no-cache');
 
-//console.log('session endded')
-}
+	//console.log('session endded')
+};
