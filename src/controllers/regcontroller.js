@@ -150,10 +150,26 @@ exports.postLogin = (req, res, next) => {
 		.catch((err) => console.log(err));
 };
 
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+	destination : function(req, file, cb) {
+		cb(null, 'src/public/img/images');
+	},
+	filename    : function(req, file, cb) {
+		cb(null, file.fieldname + '-' + Date.now() + '.jpg');
+	}
+});
+
+var upload = multer({ storage: storage });
+
+exports.uploadImage = upload.single('image');
+
 exports.postCms = (req, res, next) => {
 	heading = req.body.heading;
 	subheading = req.body.subheading;
-	imageurl = req.body.imageurl;
+	imageurl = 'img/images/' + req.file.filename;
+	console.log(imageurl)
 	content = req.body.content;
 	link = req.body.heading.split(' ').join('-');
 	//console.log(link)
@@ -170,20 +186,7 @@ exports.postCms = (req, res, next) => {
 	});
 };
 
-var multer = require('multer');
 
-var storage = multer.diskStorage({
-	destination : function(req, file, cb) {
-		cb(null, 'src/images');
-	},
-	filename    : function(req, file, cb) {
-		cb(null, file.fieldname + '-' + Date.now() + '.jpg');
-	}
-});
-
-var upload = multer({ storage: storage });
-
-exports.uploadImage = upload.single('image');
 exports.postCms1 = (req, res, next) => {
 	console.log(req.file);
 	res.render('cms1');

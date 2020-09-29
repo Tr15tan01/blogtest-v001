@@ -25,7 +25,7 @@ router.get('/post', regController.getPost);
 
 router.get('/cms', isAuthenticated, regController.getCms);
 
-router.post('/cms', isAuthenticated, regController.postCms);
+router.post('/cms', isAuthenticated, regController.uploadImage, regController.postCms);
 
 router.get('/cms1', regController.getCms1);
 
