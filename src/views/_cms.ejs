@@ -35,7 +35,7 @@
 
       </div>
       <div class="col-8">
-        <form method="POST" action="cms">
+        <form method="POST" action="cms" enctype="multipart/form-data">
           <div class="form-group">
             <label for="heading">Heading</label>
             <input type="text" class="form-control" name="heading" placeholder="Heading">
@@ -45,8 +45,8 @@
             <input type="text" class="form-control" name="subheading" placeholder="subheading">
           </div>
           <div class="form-group">
-            <label for="imgurl">Image URL</label>
-            <input type="text" class="form-control" name="imageurl" placeholder="Image URL Here">
+            <label for="imgurl">Image Upload</label>
+            <input type="file" class="form-control" name="image">
           </div>
 
           <div class="form-group">

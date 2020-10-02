@@ -166,23 +166,32 @@ var upload = multer({ storage: storage });
 exports.uploadImage = upload.single('image');
 
 exports.postCms = (req, res, next) => {
+	title = req.body.title;
 	heading = req.body.heading;
 	subheading = req.body.subheading;
 	imageurl = 'img/images/' + req.file.filename;
-	console.log(imageurl)
 	content = req.body.content;
 	link = req.body.heading.split(' ').join('-');
-	//console.log(link)
+	keywords = req.body.keywords;
+	description = req.body.description;
+	author = req.body.author;
+	dateCreated = new Date().toDateString();
+	console.log(keywords)
 	const post = new Post({
+		title: title,
 		heading    : heading,
 		subheading : subheading,
 		imageurl   : imageurl,
 		content    : content,
-		link       : link
+		link       : link,
+		keywords: keywords,
+		description: description,
+		author: author,
+		dateCreated: dateCreated
 	});
 
 	post.save(res.render('cms'), function(err) {
-		'console.log(err)';
+		console.log(err);
 	});
 };
 

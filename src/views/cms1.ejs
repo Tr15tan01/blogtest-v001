@@ -27,7 +27,7 @@
 
         <div class="vertical-menu">
           <a href="#" class="active">Home</a>
-          <a href="#">Link 1</a>
+          <a href="#" onclick="openTab(event, 'keywords')">Keywords</a>
           <a href="#">Link 2</a>
           <a href="#">Link 3</a>
           <a href="/logout">Logout</a>
@@ -43,9 +43,19 @@
          
           <button type="submit" class="btn btn-primary btn-block">submit</button>
         </form>
+        <button onclick="addElement()">add element</button>
       </div>
     </div>
   </div>
+  <script>
+function addElement() {
+var node = document.createElement('input')
+node.setAttribute("type", "text")
+node.setAttribute('value', "hi just testing")
+node.setAttribute("name", "imputinput")
+document.querySelector('form').appendChild(node)
+}
+  </script>
 </body>
 
 </html>

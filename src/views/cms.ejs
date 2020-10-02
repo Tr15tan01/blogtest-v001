@@ -17,47 +17,127 @@
 
   <!-- Custom styles for this template -->
   <link href="css/clean-blog.min.css" rel="stylesheet">
+  <link href="css/cms.css" rel="stylesheet">
+
 
 </head>
 
 <body>
-  <div class="container cms-wrapper">
-    <div class="row">
-      <div class="col-4">
+  <!-- Demo header-->
+  <section class="py-5 header">
+    <div class="container py-4">
 
-        <div class="vertical-menu">
-          <a href="#" class="active">Home</a>
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-          <a href="/logout">Logout</a>
+
+      <div class="row">
+        <div class="col-md-3">
+          <!-- Tabs nav -->
+          <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist"
+            aria-orientation="vertical">
+            <a class="nav-link mb-3 p-3 shadow active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home"
+              role="tab" aria-controls="v-pills-home" aria-selected="true">
+              <i class="fa fa-user-circle-o mr-2"></i>
+              <span class="font-weight-bold small text-uppercase">Main information</span></a>
+
+            <a class="nav-link mb-3 p-3 shadow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile"
+              role="tab" aria-controls="v-pills-profile" aria-selected="false">
+              <i class="fa fa-calendar-minus-o mr-2"></i>
+              <span class="font-weight-bold small text-uppercase">Meta Data</span></a>
+
+            <a class="nav-link mb-3 p-3 shadow" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages"
+              role="tab" aria-controls="v-pills-messages" aria-selected="false">
+              <i class="fa fa-star mr-2"></i>
+              <span class="font-weight-bold small text-uppercase">Reviews</span></a>
+
+            <a class="nav-link mb-3 p-3 shadow" href="/logout" aria-controls="v-pills-settings" aria-selected="false">
+              <i class="fa fa-check mr-2"></i>
+              <span class="font-weight-bold small text-uppercase">Logout</span></a>
+          </div>
         </div>
 
-      </div>
-      <div class="col-8">
-        <form method="POST" action="cms" enctype="multipart/form-data">
-          <div class="form-group">
-            <label for="heading">Heading</label>
-            <input type="text" class="form-control" name="heading" placeholder="Heading">
-          </div>
-          <div class="form-group">
-            <label for="subheading">Subheading</label>
-            <input type="text" class="form-control" name="subheading" placeholder="subheading">
-          </div>
-          <div class="form-group">
-            <label for="imgurl">Image Upload</label>
-            <input type="file" class="form-control" name="image">
+
+        <div class="col-md-9">
+          <!-- Tabs content -->
+          <form method="POST" action="cms" enctype="multipart/form-data">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade shadow rounded bg-white show active p-5" id="v-pills-home" role="tabpanel"
+              aria-labelledby="v-pills-home-tab">
+              <div class="form-group">
+                <label for="heading">Heading</label>
+                <input type="text" class="form-control" name="heading" placeholder="Heading" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label for="subheading">Subheading</label>
+                <input type="text" class="form-control" name="subheading" placeholder="subheading" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label for="imgurl">Image Upload</label>
+                <input type="file" class="form-control" name="image">
+              </div>
+              <div class="form-group">
+                <label for="heading">Title</label>
+                <input type="text" class="form-control" name="title" placeholder="Title" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label for="content">Content</label>
+                <textarea class="form-control" name="content" rows="6"></textarea>
+              </div>
+
+            </div>
+
+            <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-profile" role="tabpanel"
+              aria-labelledby="v-pills-profile-tab">
+              <h4 class="font-italic mb-4">Meta data</h4>
+              <div class="form-group">
+                <label for="subheading">Keywords</label>
+                <input type="text" class="form-control" name="keywords" placeholder="keywords" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" name="description" placeholder="Description" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label for="heading">Author</label>
+                <input type="text" class="form-control" name="author" placeholder="Author" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-messages" role="tabpanel"
+              aria-labelledby="v-pills-messages-tab">
+              <h4 class="font-italic mb-4">Reviews</h4>
+              <p class="font-italic text-muted mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+
+            <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-settings" role="tabpanel"
+              aria-labelledby="v-pills-settings-tab">
+              <h4 class="font-italic mb-4">Confirm booking</h4>
+              <p class="font-italic text-muted mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="content">Content</label>
-            <textarea class="form-control" name="content" rows="6"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block">submit</button>
+        </div>
+          
+        <button type="submit" class="btn btn-primary btn-block">submit</button>
         </form>
       </div>
     </div>
-  </div>
+
+  </section>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
