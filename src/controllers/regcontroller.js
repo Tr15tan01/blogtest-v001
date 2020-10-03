@@ -168,35 +168,42 @@ var upload = multer({ storage: storage });
 exports.uploadImage = upload.single('image');
 
 exports.postCms = (req, res, next) => {
-	title = req.body.title;
-	heading = req.body.heading;
-	subheading = req.body.subheading;
+	const firstLetterUpperCaseHyph = (str) => {
+		return str.toLowerCase().split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join('-');
+	};
+
+	const firstLetterUpperCase = (str) => {
+		return str.toLowerCase().split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+	};
+
+	title = firstLetterUpperCase(req.body.title);
+	heading = firstLetterUpperCase(req.body.heading);
+	subheading = firstLetterUpperCase(req.body.subheading);
 	imageurl = 'img/images/' + req.file.filename;
 	content = req.body.content;
-	link = req.body.heading.split(' ').join('-').slice(0, -1);
+	link = firstLetterUpperCaseHyph(req.body.heading);
 	keywords = req.body.keywords;
 	description = req.body.description;
-	author = req.body.author;
+	author = firstLetterUpperCase(req.body.author);
 	dateCreated = new Date().toDateString();
-	console.log(keywords)
+	console.log(keywords);
 	const post = new Post({
-		title: title,
-		heading    : heading,
-		subheading : subheading,
-		imageurl   : imageurl,
-		content    : content,
-		link       : link,
-		keywords: keywords,
-		description: description,
-		author: author,
-		dateCreated: dateCreated
+		title       : title,
+		heading     : heading,
+		subheading  : subheading,
+		imageurl    : imageurl,
+		content     : content,
+		link        : link,
+		keywords    : keywords,
+		description : description,
+		author      : author,
+		dateCreated : dateCreated
 	});
 
 	post.save(res.render('cms'), function(err) {
 		console.log(err);
 	});
 };
-
 
 exports.draftCms = (req, res, next) => {
 	title = req.body.title;
@@ -209,25 +216,24 @@ exports.draftCms = (req, res, next) => {
 	description = req.body.description;
 	author = req.body.author;
 	dateCreated = new Date().toDateString();
-	console.log(keywords)
+	console.log(keywords);
 	const draft = new Draft({
-		title: title,
-		heading    : heading,
-		subheading : subheading,
-		imageurl   : imageurl,
-		content    : content,
-		link       : link,
-		keywords: keywords,
-		description: description,
-		author: author,
-		dateCreated: dateCreated
+		title       : title,
+		heading     : heading,
+		subheading  : subheading,
+		imageurl    : imageurl,
+		content     : content,
+		link        : link,
+		keywords    : keywords,
+		description : description,
+		author      : author,
+		dateCreated : dateCreated
 	});
 
 	draft.save(res.render('cms'), function(err) {
 		console.log(err);
 	});
-}; 
-
+};
 
 exports.postCms1 = (req, res, next) => {
 	console.log(req.file);
