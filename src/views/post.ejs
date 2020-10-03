@@ -1,28 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('includes/head.ejs') %>
 
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="keywords" content="<%= keywords %>">
-  <meta name="description" content="<%- description %>">
-  <meta name="author" content="<%- author %>">
-
-  <title><%- title %></title>
-
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-  <!-- Bootstrap core CSS -->
-  <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-  <link rel="icon" type="image/ico" href="img/favicon.ico"/>
-  <!-- Custom styles for this template -->
-  <link href="css/clean-blog.min.css" rel="stylesheet">
-
-</head>
-<body>
   <%- include('includes/nav.ejs') %>
   <!-- Page Header -->
   <header class="masthead" style="background-image: url(<%= imageurl %>)">
@@ -50,11 +27,6 @@
           <h2 class="section-heading"><%=subheading %></h2>
           <p><%- content %></p>
 
-          <h2 class="section-heading"><%=subheading %></h2>
-          <p><%= content %></p>
-
-          <h2 class="section-heading"><%=subheading %></h2>
-          <p><%= content %></p>
           <hr>
 
           <h2 class="section-heading">The Final Frontier</h2>

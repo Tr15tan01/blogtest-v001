@@ -8,7 +8,17 @@ exports.getVarPost = (req, res, next) => {
 			return res.status(404).send('404 page');
 		}
 		//console.log(post.dateCreated.toISOString().slice(0,10) + ' - ' + post.dateCreated.toISOString().slice(12,16))
-		res.render('post', { heading: post.heading, imageurl: post.imageurl, subheading: post.subheading, content: post.content });
+		res.render('post', {
+			title: post.title,
+			heading: post.heading,
+			imageurl: post.imageurl,
+			subheading: post.subheading,
+			content: post.content,
+			keywords: post.keywords,
+			description: post.description,
+			author: post.author,
+			dateCreated: post.dateCreated.toDateString()
+		});
 	});
 };
 
