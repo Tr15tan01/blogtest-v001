@@ -56,7 +56,7 @@
           </a>
           <p class="post-meta">Posted by
             <a href="#"><%- val.author %></a>
-            on <%- val.dateCreated.toDateString() %></p>
+            on <%- val.dateCreated.toDateString() %>, <%= val.dateCreated.getHours() %>:<%= val.dateCreated.getMinutes() %>:<%= val.dateCreated.getSeconds() %></p>
         </div>
         <hr>
         <% }) %>

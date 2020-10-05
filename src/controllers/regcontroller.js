@@ -159,7 +159,8 @@ var storage = multer.diskStorage({
 		cb(null, 'src/public/img/images');
 	},
 	filename    : function(req, file, cb) {
-		cb(null, file.fieldname + '-' + Date.now() + '.jpg');
+		cb(null, file.fieldname + '-' + Date.now() + file.originalname);
+		console.log(file)
 	}
 });
 
@@ -185,7 +186,7 @@ exports.postCms = (req, res, next) => {
 	keywords = req.body.keywords;
 	description = req.body.description;
 	author = firstLetterUpperCase(req.body.author);
-	dateCreated = new Date().toDateString();
+	dateCreated = new Date();
 	console.log(keywords);
 	const post = new Post({
 		title       : title,
