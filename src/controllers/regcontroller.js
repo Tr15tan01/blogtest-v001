@@ -11,7 +11,7 @@ exports.getPost = (req, res, next) => {
 };
 
 exports.getAbout = (req, res, next) => {
-	res.render('about');
+	res.render('about', {keywords: 'about, about us, who we are', description: 'we are leading', author: 'tristan varamashvili', title: 'About Us'});
 };
 
 exports.getRegister = (req, res, next) => {

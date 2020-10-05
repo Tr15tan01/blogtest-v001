@@ -26,14 +26,14 @@
   <!-- Navigation -->
   <%- include('includes/nav.ejs') %>
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url(https://images.unsplash.com/photo-1600934258627-aa83a8ad1dd2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1402&q=80)">
+  <header class="masthead" style="background-image: url(img/stat/header.webp)">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1 data-aos="fade-up" data-aos-delay="300">Testing My Blog</h1>
-            <span class="subheading" data-aos="fade-up" data-aos-delay="600">A Blog about some nice thing</span>
+            <h1 data-aos="fade-up" data-aos-delay="300">Top Leading Best Markets</h1>
+            <span class="subheading" data-aos="fade-up" data-aos-delay="600">Find Out Every Nice Thing in The World</span>
           </div>
         </div>
       </div>
@@ -56,7 +56,13 @@
           </a>
           <p class="post-meta">Posted by
             <a href="#"><%- val.author %></a>
-            on <%- val.dateCreated.toDateString() %>, <%= val.dateCreated.getHours() %>:<%= val.dateCreated.getMinutes() %>:<%= val.dateCreated.getSeconds() %></p>
+            on <%- val.dateCreated.toDateString() %>,
+            <% if(val.dateCreated.getHours()<10) { %>
+              <%= '0' + val.dateCreated.getHours() %> <% } else { %>
+                <%=val.dateCreated.getHours() %> <% } %> :
+             <% if(val.dateCreated.getMinutes()<10) { %>
+             <%= '0' + val.dateCreated.getMinutes() %> <% } else { %>
+              <%= val.dateCreated.getMinutes() %> <% } %>:<%= val.dateCreated.getSeconds() %></p>
         </div>
         <hr>
         <% }) %>
@@ -72,41 +78,8 @@
   <hr>
 
   <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <ul class="list-inline text-center">
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-          </ul>
-          <p class="copyright text-muted">Copyright &copy; Your Website 2020</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <%- include('includes/footer.ejs') %>
+  <!-- End of Footer -->
   <!-- Bootstrap core JavaScript -->
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
