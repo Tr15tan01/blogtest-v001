@@ -96,6 +96,25 @@ img::-moz-selection {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 }
+/* blur */
+
+.blurred {
+	filter: blur(33px);
+	/*   animation: blur-in 1s ease-in-out; */
+}
+.is-loaded {
+	filter: none;
+	animation: blur-in 2s ease-in-out;
+}
+@keyframes blur-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
 @media only screen and (min-width: 992px) {
 	#mainNav {
 		border-bottom: 1px solid transparent;
@@ -360,25 +379,25 @@ footer .copyright {
 
 .vertical-menu {
 	width: 100%; /* Set a width if you like */
-  }
-  
-  .vertical-menu a {
+}
+
+.vertical-menu a {
 	background-color: #eee; /* Grey background color */
 	color: black; /* Black text color */
 	display: block; /* Make the links appear below each other */
 	padding: 12px; /* Add some padding */
 	text-decoration: none; /* Remove underline from links */
-  }
-  
-  .vertical-menu a:hover {
+}
+
+.vertical-menu a:hover {
 	background-color: #ccc; /* Dark grey background on mouse-over */
-  }
-  
-  .vertical-menu a.active {
+}
+
+.vertical-menu a.active {
 	background-color: dodgerblue; /* Add a green color to the "active/current" link */
 	color: white;
-  }
+}
 
-  .cms-wrapper {
-	  padding-top: 30px;
-  }
+.cms-wrapper {
+	padding-top: 30px;
+}
