@@ -104,7 +104,7 @@ img::-moz-selection {
 }
 .is-loaded {
 	filter: none;
-	animation: blur-in 2s ease-in-out;
+	animation: blur-in 3s ease-in-out;
 }
 @keyframes blur-in {
 	from {
