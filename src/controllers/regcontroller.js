@@ -11,7 +11,12 @@ exports.getPost = (req, res, next) => {
 };
 
 exports.getAbout = (req, res, next) => {
-	res.render('about', {keywords: 'about, about us, who we are', description: 'we are leading', author: 'tristan varamashvili', title: 'About Us'});
+	res.render('about', {
+		keywords: 'about, about us, who we are',
+		description: 'we are leading',
+		author: 'tristan varamashvili',
+		title: 'About Us'
+	});
 };
 
 exports.getRegister = (req, res, next) => {
@@ -153,6 +158,7 @@ exports.postLogin = (req, res, next) => {
 };
 
 var multer = require('multer');
+// const getStream = require('get-stream')
 
 var storage = multer.diskStorage({
 	destination : function(req, file, cb) {
@@ -160,13 +166,14 @@ var storage = multer.diskStorage({
 	},
 	filename    : function(req, file, cb) {
 		cb(null, file.fieldname + '-' + Date.now() + file.originalname);
-		console.log(file)
+		//console.log(file)
 	}
 });
 
 var upload = multer({ storage: storage });
 
 exports.uploadImage = upload.single('image');
+const sharp = require('sharp');
 
 exports.postCms = (req, res, next) => {
 	const firstLetterUpperCaseHyph = (str) => {
@@ -176,23 +183,35 @@ exports.postCms = (req, res, next) => {
 	const firstLetterUpperCase = (str) => {
 		return str.toLowerCase().split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 	};
+	console.log('file ', req.file)
+	sharp(req.file.path)
+		.resize({ height: 100, width: 100 })
+		.toFile(req.file.destination + '/small/' + req.file.filename)
+		.then(function(newFileInfo) {
+			console.log('Image Resized', newFileInfo);
+		})
+		.catch(function(err) {
+			console.log('Got Error');
+		});
 
 	title = firstLetterUpperCase(req.body.title);
 	heading = firstLetterUpperCase(req.body.heading);
 	subheading = firstLetterUpperCase(req.body.subheading);
 	imageurl = 'img/images/' + req.file.filename;
+	smallImageUrl = 'img/images/small/' + req.file.filename;
 	content = req.body.content;
 	link = firstLetterUpperCaseHyph(req.body.heading);
 	keywords = req.body.keywords;
 	description = req.body.description;
 	author = firstLetterUpperCase(req.body.author);
 	dateCreated = new Date();
-	console.log(keywords);
+	//console.log(keywords);
 	const post = new Post({
 		title       : title,
 		heading     : heading,
 		subheading  : subheading,
 		imageurl    : imageurl,
+		smallImageUrl: smallImageUrl,
 		content     : content,
 		link        : link,
 		keywords    : keywords,
@@ -217,7 +236,7 @@ exports.draftCms = (req, res, next) => {
 	description = req.body.description;
 	author = req.body.author;
 	dateCreated = new Date().toDateString();
-	console.log(keywords);
+	//console.log(keywords);
 	const draft = new Draft({
 		title       : title,
 		heading     : heading,
@@ -237,7 +256,7 @@ exports.draftCms = (req, res, next) => {
 };
 
 exports.postCms1 = (req, res, next) => {
-	console.log(req.file);
+	//console.log(req.file);
 	res.render('cms1');
 };
 

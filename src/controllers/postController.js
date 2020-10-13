@@ -12,6 +12,7 @@ exports.getVarPost = (req, res, next) => {
 			title: post.title,
 			heading: post.heading,
 			imageurl: post.imageurl,
+			smallImageUrl: post.smallImageUrl,
 			subheading: post.subheading,
 			content: post.content,
 			keywords: post.keywords,

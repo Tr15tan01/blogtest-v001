@@ -3,46 +3,50 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
-	title       : {
+	title         : {
 		type     : String,
 		required : true
 	},
-	heading     : {
+	heading       : {
 		type     : String,
 		required : true
 	},
-	subheading  : {
+	subheading    : {
 		type     : String,
 		required : true
 	},
-	content     : {
+	content       : {
 		type     : String,
 		required : true
 	},
-	imageurl    : {
+	imageurl      : {
 		type     : String,
 		required : true
 	},
-	link        : {
+	smallImageUrl : {
+		type     : String,
+		required : true
+	},
+	link          : {
 		type        : String,
 		required    : true,
 		tolowercase : true,
 		trim        : true
 	},
-	keywords    : {
+	keywords      : {
 		type     : String,
 		required : true
 	},
-	description : {
+	description   : {
 		type     : String,
 		required : true
 	},
-	author      : {
+	author        : {
 		type     : String,
 		required : true
 	},
-	dateCreated : {
-		type    : Date
+	dateCreated   : {
+		type : Date
 	}
 });
 
