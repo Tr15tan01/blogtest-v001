@@ -5,7 +5,7 @@ exports.getVarPost = (req, res, next) => {
 	//console.log(req.url, postToShow);
 	Post.findOne({ link: postToShow }).then((post) => {
 		if (!post) {
-			return res.status(404).send('404 page');
+			return res.status(404).render('404', {keywords: '404 error', description: 'Not Found, 404 error', author: 'me', title: '404 Error'});
 		}
 		//console.log(post.dateCreated.toISOString().slice(0,10) + ' - ' + post.dateCreated.toISOString().slice(12,16))
 		res.render('post', {

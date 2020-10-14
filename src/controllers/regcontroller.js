@@ -12,10 +12,10 @@ exports.getPost = (req, res, next) => {
 
 exports.getAbout = (req, res, next) => {
 	res.render('about', {
-		keywords: 'about, about us, who we are',
-		description: 'we are leading',
-		author: 'tristan varamashvili',
-		title: 'About Us'
+		keywords    : 'about, about us, who we are',
+		description : 'we are leading',
+		author      : 'tristan varamashvili',
+		title       : 'About Us'
 	});
 };
 
@@ -183,12 +183,12 @@ exports.postCms = (req, res, next) => {
 	const firstLetterUpperCase = (str) => {
 		return str.toLowerCase().split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 	};
-	console.log('file ', req.file)
+	//console.log('file ', req.file)
 	sharp(req.file.path)
-		.resize({ height: 100, width: 100 })
+		.resize({ height: 100, width: 120 })
 		.toFile(req.file.destination + '/small/' + req.file.filename)
 		.then(function(newFileInfo) {
-			console.log('Image Resized', newFileInfo);
+			//console.log('Image Resized', newFileInfo);
 		})
 		.catch(function(err) {
 			console.log('Got Error');
@@ -207,17 +207,17 @@ exports.postCms = (req, res, next) => {
 	dateCreated = new Date();
 	//console.log(keywords);
 	const post = new Post({
-		title       : title,
-		heading     : heading,
-		subheading  : subheading,
-		imageurl    : imageurl,
-		smallImageUrl: smallImageUrl,
-		content     : content,
-		link        : link,
-		keywords    : keywords,
-		description : description,
-		author      : author,
-		dateCreated : dateCreated
+		title         : title,
+		heading       : heading,
+		subheading    : subheading,
+		imageurl      : imageurl,
+		smallImageUrl : smallImageUrl,
+		content       : content,
+		link          : link,
+		keywords      : keywords,
+		description   : description,
+		author        : author,
+		dateCreated   : dateCreated
 	});
 
 	post.save(res.render('cms'), function(err) {

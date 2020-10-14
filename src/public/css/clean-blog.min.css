@@ -98,14 +98,26 @@ img::-moz-selection {
 }
 /* blur */
 
-.blurred {
-	filter: blur(33px);
-	/*   animation: blur-in 1s ease-in-out; */
+
+.blur-image {
+	display: block;
+	min-height: 90vh; /* layout hack */
+	background: #fff center center no-repeat;
+	background-size: cover;
+	filter: blur(33px); /* blur the lowres image */
 }
-.is-loaded {
-	filter: none;
-	animation: blur-in 3s ease-in-out;
+
+.blur-image > img {
+	display: block;
+	width: 100%;
+	opacity: 0; /* visually hide the img element */
 }
+
+.blur-image.is-loaded {
+	filter: none; /* remove the blur on fullres image */
+	transition: filter 2s;
+}
+
 @keyframes blur-in {
 	from {
 		opacity: 0;

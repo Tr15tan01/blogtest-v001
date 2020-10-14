@@ -2,7 +2,8 @@
 
 <%- include('includes/nav.ejs') %>
 <!-- Page Header -->
-<header class="masthead blurred" style="background-image: url(<%= imageurl %>)">
+<header class="masthead blur-image" style="background-image: url(<%= smallImageUrl %>)"
+  data-image-full="<%= imageurl %>">
   <div class="overlay"></div>
   <div class="container">
     <div class="row">
@@ -17,6 +18,7 @@
       </div>
     </div>
   </div>
+  <img src="<%= imageurl %>" alt="header" />
 </header>
 
 <!-- Post Content -->
@@ -78,6 +80,8 @@
 
 <!-- Footer -->
 <%- include('includes/footer.ejs') %>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
 <!-- Image blur -->
 <script src="js/imgs.js"></script>
 <!-- aos -->
