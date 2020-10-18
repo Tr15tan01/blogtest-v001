@@ -21,7 +21,7 @@ const store = new mongoStore({
 	collection : 'sessions'
 });
 
-app.use(session({ secret: '$100000', resave: false, maxAge: 30* 2 * 1000 , saveUninitialized: false, store: store }));
+app.use(session({ secret: '$100000', resave: false, expires: new Date(Date.now() + 2 * 60) , saveUninitialized: false, store: store }));
 app.use(routes);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: false}))
