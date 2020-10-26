@@ -115,7 +115,7 @@ img::-moz-selection {
 
 .blur-image.is-loaded {
 	filter: none; /* remove the blur on fullres image */
-	transition: filter 2s;
+	transition: filter .9s;
 }
 
 @keyframes blur-in {
