@@ -18,7 +18,7 @@ exports.getVarPost = (req, res, next) => {
 			keywords: post.keywords,
 			description: post.description,
 			author: post.author,
-			dateCreated: post.dateCreated.toDateString()
+			dateCreated: post.dateCreated
 		});
 	});
 };

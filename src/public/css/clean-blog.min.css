@@ -101,7 +101,7 @@ img::-moz-selection {
 
 .blur-image {
 	display: block;
-	min-height: 90vh; /* layout hack */
+	min-height: 84vh; /* layout hack */
 	background: #fff center center no-repeat;
 	background-size: cover;
 	filter: blur(33px); /* blur the lowres image */
@@ -181,13 +181,13 @@ img::-moz-selection {
 	}
 }
 header.masthead {
-	margin-bottom: 50px;
+	margin-bottom: 30px;
 	background: no-repeat center center;
 	background-color: #868e96;
 	background-attachment: scroll;
 	position: relative;
 	background-size: cover;
-	height: 90vh;
+	height: 84vh;
 }
 header.masthead .overlay {
 	position: absolute;
@@ -201,14 +201,14 @@ header.masthead .overlay {
 header.masthead .page-heading,
 header.masthead .post-heading,
 header.masthead .site-heading {
-	padding: 200px 0 150px;
+	padding: 120px 0 150px;
 	color: #fff;
 }
 @media only screen and (min-width: 768px) {
 	header.masthead .page-heading,
 	header.masthead .post-heading,
 	header.masthead .site-heading {
-		padding: 200px 0;
+		padding: 120px 0;
 	}
 }
 header.masthead .page-heading,
