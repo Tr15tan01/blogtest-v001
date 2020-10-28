@@ -19,6 +19,33 @@ exports.getAbout = (req, res, next) => {
 	});
 };
 
+exports.getContact = (req, res, next) => {
+	res.render('contact', {
+		keywords    : 'about, about us, who we are',
+		description : 'we are leading',
+		author      : 'tristan varamashvili',
+		title       : 'Contact'
+	});
+};
+
+exports.postContact = (req, res, next) => {
+	const name = req.body.name;
+	const email = req.body.email;
+	const subject = req.body.subject;
+	const text = req.body.text;
+	// console.log('hi', name, subject, email, text)
+
+
+	res.render('contact', {
+		keywords    : 'about, about us, who we are',
+		description : 'we are leading',
+		author      : 'tristan varamashvili',
+		title       : name
+	});
+
+};
+
+
 exports.getRegister = (req, res, next) => {
 	res.render('register', {
 		pageTitle            : 'register00000',
@@ -174,6 +201,7 @@ var upload = multer({ storage: storage });
 
 exports.uploadImage = upload.single('image');
 const sharp = require('sharp');
+const { getMaxListeners } = require('../models/usermodel');
 
 exports.postCms = (req, res, next) => {
 	const firstLetterUpperCaseHyph = (str) => {

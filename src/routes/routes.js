@@ -13,6 +13,10 @@ router.get('/', regController.getIndex);
 
 router.get('/about', regController.getAbout)
 
+router.get('/contact', regController.getContact)
+
+router.post('/contact', regController.postContact)
+
 router.get('/register', regController.getRegister);
 
 router.post('/register', regController.postRegister);
